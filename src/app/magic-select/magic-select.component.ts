@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LocationService } from '../location.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-magic-select',
@@ -8,20 +9,33 @@ import { LocationService } from '../location.service';
 })
 export class MagicSelectComponent implements OnInit {
 
-  @Input() private options: any = [];
+  @Input() private category: any = "";
   @Input() private title: any = [];
 
-  @Output() dataSelected: EventEmitter<any> = new EventEmitter();
+  options: any;
 
   constructor(private ls: LocationService) {
-  }
-
-  ngOnInit() {
     
   }
 
-  changeValue(e){
-    this.dataSelected.emit(e.target.value);
+  ngOnInit() {
+    this.ls[this.category].subscribe( (options) => {
+      this.options = options;
+    });
+
+    this.ls.loadCountries();
   }
+
+  changeValue(e){
+    switch (this.category) {
+      case "countries":
+        this.ls.setCountry(e.target.value);
+        break;
+      case "departments":
+          this.ls.setDepartment(e.target.value);
+        break;
+    }
+  }
+
 
 }

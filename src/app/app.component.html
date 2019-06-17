@@ -1,4 +1,4 @@
-<app-magic-select (dataSelected)="changeCountry($event)" [title]="'País'" [options]="countries"></app-magic-select>
-<app-magic-select (dataSelected)="changeDepartment($event)" [title]="'Departamento'" [options]="departments"></app-magic-select>
-<app-magic-select (dataSelected)="changeCity($event)" [title]="'Ciudad'" [options]="cities"></app-magic-select>
+<app-magic-select [title]="'País'" [category]="'countries'"></app-magic-select>
+<app-magic-select [title]="'Departamento'" [category]="'departments'"></app-magic-select>
+<app-magic-select [title]="'Ciudad'" [category]="'cities'"></app-magic-select>
 <router-outlet></router-outlet>

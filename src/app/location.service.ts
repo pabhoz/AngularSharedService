@@ -6,108 +6,63 @@ import { Observable, Subject } from 'rxjs';
 })
 export class LocationService {
 
-
-  countries: any = [];
-  departments: any = [];
-  cities: any = [];
-
-  _country: Subject<number> = new Subject();
+  _countries: Subject<number> = new Subject();
+  _departments: Subject<number> = new Subject();
+  _cities: Subject<number> = new Subject();
+  
 
   constructor() {
+  }
 
-    this.countries = [
+  get countries() : Subject<any> {
+    return this._countries;
+  }
+  set countries(src: Subject<any>) {
+    this._countries = src;
+  }
+
+  get departments() : Subject<any> {
+    return this._departments;
+  }
+  set departments(src: Subject<any>) {
+    this._departments = src;
+  }
+
+  get cities() : Subject<any> {
+    return this._cities;
+  }
+  set cities(src: Subject<any>) {
+    this._cities = src;
+  }
+
+  loadCountries(){
+    this.countries.next([
       { id: 1, name: "colombia" },
       { id: 2, name: "USA" },
-    ];
+    ]);
+  }
 
-    this.departments = [
+  loadDepartments(countryId){
+    let depts = [
       { id: 1, name: "Bogotá", countryId: 1 },
       { id: 2, name: "Valle del cauca", countryId: 1 },
     ];
+    this.departments.next(depts.filter(elm => elm.countryId == countryId));
+  }
 
-    this.cities = [
+  loadCities(departmentId){
+    let cities = [
       { id: 1, name: "Bogotá", departmentId: 1 },
       { id: 2, name: "Cali", departmentId: 2 },
     ];
-
+    this.cities.next(cities.filter(elm => elm.departmentId == departmentId));
   }
 
-  get country() : Subject<number> {
-    return this._country;
-  }
-  set country(src: Subject<number>) {
-    this._country = src;
+  setCountry(id){
+    this.loadDepartments(id);
   }
 
-  setCountry(n: number) {
-    this.country.next(n);
+  setDepartment(id){
+    this.loadCities(id);
   }
-/*
-  location = {
-    country: { id: null, name: "" },
-    department: { id: null, name: "" },
-    city: { id: null, name: "" }
-  }
-
-  loaded = {
-    countries: [],
-    departments: [],
-    cities: []
-  }
-
-  constructor() {
-
-    this.countries = [
-      { id: 1, name: "colombia" },
-      { id: 2, name: "USA" },
-    ];
-
-    this.departments = [
-      { id: 1, name: "Bogotá", countryId: 1 },
-      { id: 2, name: "Valle del cauca", countryId: 1 },
-    ];
-
-    this.cities = [
-      { id: 1, name: "Bogotá", departmentId: 1 },
-      { id: 2, name: "Cali", departmentId: 2 },
-    ];
-
-    this.loaded.countries = this.countries;
-
-  }
-  getElementById(elements, id) {
-    let element = elements.find((element) => {
-      return element.id == id;
-    })
-    return element;
-  }
-
-  getCountries() {
-    return this.countries;
-  }
-  getCountry(id) {
-    return this.getElementById(this.countries, id);
-  }
-  setCountry(country) {
-    this.location.country = country;
-  }
-
-  getDepartments(countryId) {
-    return this.departments.filter( element => element.countryId = countryId)
-  }
-
-  getDepartment(id) {
-    return this.getElementById(this.departments, id);
-  }
-  setDepartment(department) {
-    this.location.department = department;
-  }
-
-  getCities(departmentId) {
-    return this.cities.filter( element => element.departmentId = departmentId)
-  }
-  setCity(city) {
-    this.location.city = city;
-  }
-  */
 }
