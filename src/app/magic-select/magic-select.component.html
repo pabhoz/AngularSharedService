@@ -1,0 +1,4 @@
+<select name="" id="" (change)="changeValue($event)">
+  <option value="">Seleccione {{title}}</option>
+  <option *ngFor="let option of options" [value]="option.id">{{option.name}}</option>
+</select>

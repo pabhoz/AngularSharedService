@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MagicSelectComponent } from './magic-select/magic-select.component';
+import { LocationService } from './location.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MagicSelectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
